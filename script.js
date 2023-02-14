@@ -1,20 +1,3 @@
-/*var objektum = {
-    szam1: 34,
-    szam2: 23,
-    id: 0,
-    ertek: "Zöldvár4",
-    Torol: Torol(),
-    Szomszedok: [234,535,5235,45]
-}
-
-function Torol()
-{    
-    console.log("töröl");
-}
-
-console.log(objektum.szam1);
-console.log(objektum.Szomszedok[0]);*/
-
 
 var jatekTer = document.getElementById("jatekTer");
 var tabla = document.createElement("div");
@@ -22,6 +5,8 @@ var leftSide = document.createElement("div");
 var kartyaBox = document.createElement("div");
 var pontBox = document.createElement("div");
 var korokBox = document.createElement("div");
+
+var kartyakTablan = [];
 
 function JatekTerBetoltese()
 {
@@ -84,7 +69,58 @@ function KartyakatTablabaGeneral(db)
         //Házi feladat - dizájnolás
         //Csináld meg, hogy ne legyen ismétlődés a helyek és számok között
     }
+}
 
+function  KartyaFeltoltesSorban(){
+    kartyakTablan = [];
+    for(var i = 1; i < 24; i++)
+    {
+        var kep = document.createElement("img");
+        kep.src = "img/kartyak/kartya"+i+".png";
+        kartyakTablan.push(kep);
+    }
+    for(var i = 1; i < 5; i++)
+    {
+        var kep = document.createElement("img");
+        kep.src = "img/tornyok/toronyPiros"+i+".png";
+        kartyakTablan.push(kep);
+    }
+    for(var i = 1; i < 4; i++)
+    {
+        var kep = document.createElement("img");
+        kep.src = "img/tornyok/toronySarga"+i+".png";
+        kartyakTablan.push(kep);
+    }    
+}
+
+function KartyaKihelyezesTablara()
+{
+    for(var i = 0; i<kartyakTablan.length; i++)
+    {
+        var cella = document.getElementById(i);
+        cella.appendChild(kartyakTablan[i]);
+    }
+}
+
+function KartyaKeveres()
+{
+    for(var i = 0; i<200; i++)
+    {
+        var r1 = Math.floor(Math.random()*30);
+        var r2 = Math.floor(Math.random()*30);
+        console.log(r1+" "+r2);
+        var sv = kartyakTablan[r1];
+        kartyakTablan[r1] = kartyakTablan[r2];
+        kartyakTablan[r2] = sv;
+    }
+    console.log(kartyakTablan);
+}
+
+function TablaFeltoltes()
+{
+    KartyaFeltoltesSorban();
+    KartyaKeveres();
+    KartyaKihelyezesTablara();
 }
 
 function Main()
@@ -92,7 +128,8 @@ function Main()
     JatekTerBetoltese();
     JatekTerElrendezese();
     TablaGeneralasa();
-    KartyakatTablabaGeneral(5);
+    //KartyakatTablabaGeneral(5);
+    TablaFeltoltes();
 }
 
 Main();
